@@ -1,0 +1,18 @@
+kind: PersistentVolume
+apiVersion: v1
+
+metadata:
+  name: fleetman-local-storage
+  
+spec:
+  storageClassName: fleetman-primary-storage
+  
+  accessModes:
+  - ReadWriteOnce
+  
+  capacity:
+    storage: 20Gi
+  
+  hostPath:
+    path: /mnt/data/fleetman/primary/storage
+    type: DirectoryOrCreate

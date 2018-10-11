@@ -1,0 +1,15 @@
+kind: PersistentVolumeClaim
+apiVersion: v1
+
+metadata:
+  name: fleetman-mongo-pvc
+  
+spec:
+  storageClassName: fleetman-primary-storage
+  
+  accessModes:
+  - ReadWriteOnce
+  
+  resources:
+    requests:
+      storage: 4Gi

@@ -1,0 +1,49 @@
+kind: Deployment
+apiVersion: apps/v1
+
+metadata:
+  name: mongodb
+  
+spec:
+  replicas: 1
+  
+  selector:
+    matchLabels:
+        app: mongodb
+    
+  template:
+    metadata:
+      labels:
+        app: mongodb
+    spec:
+      containers:
+      - name: mongodb
+        image: mongo:3.6.5-jessie
+        
+        volumeMounts:
+        - name: mongo-persistent-storage
+          mountPath: /data/db
+      
+      volumes:
+      - name: mongo-persistent-storage
+        # hostPath:
+          # path: /mnt/mongo/data/db
+          # type: DirectoryOrCreate
+        persistentVolumeClaim:
+          claimName: fleetman-mongo-pvc
+---
+kind: Service
+apiVersion: v1
+
+metadata:
+  name: fleetman-mongodb
+  
+spec:
+  selector:
+    app: mongodb
+  
+  ports:
+  - name: mongodbport
+    port: 27017
+  
+  type: ClusterIP

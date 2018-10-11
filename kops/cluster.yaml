@@ -1,0 +1,52 @@
+apiVersion: kops/v1alpha2
+kind: Cluster
+metadata:
+  creationTimestamp: 2018-09-25T13:26:50Z
+  name: fleetmancluster.k8s.local
+spec:
+  api:
+    loadBalancer:
+      type: Public
+  authorization:
+    rbac: {}
+  channel: stable
+  cloudProvider: aws
+  configBase: s3://spearheadfleetmankops-state-store/fleetmancluster.k8s.local
+  etcdClusters:
+  - etcdMembers:
+    - instanceGroup: master-ap-south-1a
+      name: a
+    name: main
+  - etcdMembers:
+    - instanceGroup: master-ap-south-1a
+      name: a
+    name: events
+  iam:
+    allowContainerRegistry: true
+    legacy: false
+  kubernetesApiAccess:
+  - 0.0.0.0/0
+  kubernetesVersion: 1.10.3
+  masterInternalName: api.internal.fleetmancluster.k8s.local
+  masterPublicName: api.fleetmancluster.k8s.local
+  networkCIDR: 172.20.0.0/16
+  networking:
+    kubenet: {}
+  nonMasqueradeCIDR: 100.64.0.0/10
+  sshAccess:
+  - 0.0.0.0/0
+  subnets:
+  - cidr: 172.20.32.0/19
+    name: ap-south-1a
+    type: Public
+    zone: ap-south-1a
+  - cidr: 172.20.64.0/19
+    name: ap-south-1b
+    type: Public
+    zone: ap-south-1b
+  topology:
+    dns:
+      type: Public
+    masters: public
+    nodes: public
+
