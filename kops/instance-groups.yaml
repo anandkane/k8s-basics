@@ -46,11 +46,11 @@ metadata:
   name: nodes-es
 spec:
   image: kope.io/k8s-1.9-debian-jessie-amd64-hvm-ebs-2018-03-11
-  machineType: t2.medium
+  machineType: c4.large
   maxSize: 2
   minSize: 2
   nodeLabels:
-    kops.k8s.io/instancegroup: nodes-es
+    kops.k8s.io/instancegroup: nodeses
   role: Node
   subnets:
   - ap-south-1a
